@@ -1,0 +1,33 @@
+1. Using HashiCorp Vault with Cert-Manager in K8
+    https://genekuo.medium.com/using-hashicorp-vault-as-certificate-manager-on-a-kubernetes-cluster-155604d39a60
+
+2. Youtube Playlist
+   https://www.youtube.com/watch?v=EpXabc1XdmM&t=0s    [GitHub: https://github.com/rkinge21/vault-dev/blob/main/code/pki/vault-pki-code/03_pki_root_ca_generate.sh]
+
+3. Using Java generate certificates
+    https://www.youtube.com/watch?v=ZGiYwkEBZXs
+
+4. To Use/Import existing CA
+    https://developer.hashicorp.com/vault/api-docs/secret/pki#import-ca-certificates-and-keys
+
+    https://discuss.hashicorp.com/t/how-to-store-apache-web-servers-ssl-certificates-and-keys-in-vault/17593
+
+5. How to fetch private key from Vault CA
+    https://discuss.hashicorp.com/t/ca-private-key-from-vault-ca/30106/14
+
+6. CURL command to get private key from Vault
+    curl http://127.0.0.1:8200/v1/pki/ca/pem --output /e/k8/hashicorp/vault/certs/ca-root-private-key-curl-command.pem
+    curl http://127.0.0.1:8200/v1/pki_int/ca/pem --output /e/k8/hashicorp/vault/certs/ca-inter-private-key-curl-command.pem
+
+7. Openssl shell command to get private key
+    openssl x509 -pubkey -noout -in ca-root.pem > /vault/certs/"${CERT_PATH}"/ca-root-private-key-shell-command.pem
+    openssl x509 -pubkey -noout -in ca-inter.pem > /vault/certs/"${CERT_PATH}"/ca-inter-private-key-shell-command.pem
+
+8. Using /sys/raw (https://developer.hashicorp.com/vault/api-docs/system/raw)
+    PKI_MOUNT_UUID_ROOT=$(vault read -format=json sys/mounts | jq -r '.data[] | select(.type=="pki").uuid')
+
+    NOTE: PKI_MOUNT_UUID_ROOT might give multiple results
+    PKI_PRIVATE_KEY_UUID_ROOT=$(vault list -format=json sys/raw/logical/"${PKI_MOUNT_UUID_ROOT}"/config/key | jq -r .[0])
+    #   PKI_PRIVATE_KEY_UUID_ROOT=$(vault list -format=json sys/raw/logical/d20d9944-c1fd-8750-b726-baf87bc6178f/config/key | jq -r .[0])
+    vault read --field value sys/raw/logical/${PKI_MOUNT_UUID_ROOT}/config/key/${PKI_PRIVATE_KEY_UUID_ROOT} | jq -r ca-root.private_key
+    #   vault read --field value sys/raw/logical/d20d9944-c1fd-8750-b726-baf87bc6178f/config/key/fdef44e5-4e3b-21cb-4be5-535345d46325 | jq -r ca-root.private_key

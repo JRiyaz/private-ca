@@ -1,0 +1,4 @@
+{{ with secret "pki_int/issue/dot-com" "common_name=localhost.com" "alt_names=www.localhost.com"  "ttl=1m" }}
+{{ .Data.certificate }}
+{{ .Data.issuing_ca }}
+{{ end }}

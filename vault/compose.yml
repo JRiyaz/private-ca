@@ -1,0 +1,17 @@
+services:
+  vault:
+    container_name: "vault"
+    image: "vault:1.18.1"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "8200:8200"
+    cap_add:
+      - IPC_LOCK
+    volumes:
+      - E:/k8/private-ca/vault/config:/vault/config
+      - E:/k8/private-ca/vault/certs:/vault/certs
+      - E:/k8/private-ca/vault/logs:/vault/logs

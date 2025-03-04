@@ -32,9 +32,17 @@
     vault operator init -key-shares=1 -key-threshold=1 -format=json > init-keys.json
 
 8. Unseal vault
+    cat init-keys.json | jq -r ".unseal_keys_b64[]"
+
+    export VAULT_UNSEAL_KEY=$(cat init-keys.json | jq -r ".unseal_keys_b64[]")
+
     vault operator unseal $VAULT_UNSEAL_KEY
 
 9. Login to Vault
+    cat init-keys.json | jq -r ".root_token"
+
+    export VAULT_ROOT_TOKEN=$(cat init-keys.json | jq -r ".root_token")
+
     vault login $VAULT_ROOT_TOKEN
 
 ### Configure Vault with existing CA

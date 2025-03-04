@@ -15,3 +15,4 @@ services:
       - E:/k8/private-ca/vault/config:/vault/config
       - E:/k8/private-ca/vault/certs:/vault/certs
       - E:/k8/private-ca/vault/logs:/vault/logs
+      - E:/k8/private-ca/vault/data:/vault/data

@@ -2,7 +2,8 @@
     https://genekuo.medium.com/using-hashicorp-vault-as-certificate-manager-on-a-kubernetes-cluster-155604d39a60
 
 2. Youtube Playlist
-   https://www.youtube.com/watch?v=EpXabc1XdmM&t=0s    [GitHub: https://github.com/rkinge21/vault-dev/blob/main/code/pki/vault-pki-code/03_pki_root_ca_generate.sh]
+   1. https://www.youtube.com/watch?v=EpXabc1XdmM&t=0s    [GitHub: https://github.com/rkinge21/vault-dev/blob/main/code/pki/vault-pki-code/03_pki_root_ca_generate.sh]
+   2. https://www.youtube.com/watch?v=q3Rrup48zlM
 
 3. Using Java generate certificates
     https://www.youtube.com/watch?v=ZGiYwkEBZXs

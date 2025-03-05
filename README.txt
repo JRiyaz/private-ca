@@ -97,3 +97,6 @@
 
 4. Configure URL for intermediate CA
     vault write pki_int/config/urls issuing_certificates="http://127.0.0.1:8200/v1/pki_int/ca" crl_distribution_points="http://127.0.0.1:8200/v1/pki_int/crl"
+
+### Start Nginx
+docker run --rm -v E:/k8/private-ca/vault/certs:/etc/nginx/certs -v E:/k8/private-ca/web-server:/etc/nginx/conf.d --name nginx -p 80:80 -p 443:443 nginx

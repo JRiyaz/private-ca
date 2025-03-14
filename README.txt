@@ -6,7 +6,7 @@
     helm repo add jetstack https://charts.jetstack.io --force-update
 
 2. Install Cert Manager
-    helm install cert-manager jetstack/cert-manager -n cert-manager --create-namespace --version v1.17.0 --set crds.enabled=true
+    helm install cert-manager jetstack/cert-manager -n cert-manager --create-namespace --version v1.17.1 --set crds.enabled=true
 
 ### HashiCorp Vault (https://developer.hashicorp.com/vault/docs/platform/k8s/helm)
 1. Links
@@ -29,21 +29,25 @@
     kubectl exec -it vault-0 -n vault -- sh
 
 7. Generate initial keys
-    vault operator init -key-shares=1 -key-threshold=1 -format=json > init-keys.json
-
+    1. kubectl exec vault-0 -n vault -- vault operator init -key-shares=1 -key-threshold=1 -format=json > init-keys.json
+    2. vault operator init -key-shares=1 -key-threshold=1 -format=json > init-keys.json
+vault write pki/config/urls issuing_certificates="http://localhost:8200/v1/pki/ca" crl_distribution_points="http://localhost:8200/v1/pki/crl"
 8. Unseal vault
-    cat init-keys.json | jq -r ".unseal_keys_b64[]"
+    1. Install jq (choco install jq)
+    2. cat init-keys.json | jq -r ".unseal_keys_b64[]"
 
     export VAULT_UNSEAL_KEY=$(cat init-keys.json | jq -r ".unseal_keys_b64[]")
 
-    vault operator unseal $VAULT_UNSEAL_KEY
+    1. kubectl exec vault-0 -n vault -- vault operator unseal $VAULT_UNSEAL_KEY
+    2. vault operator unseal $VAULT_UNSEAL_KEY
 
 9. Login to Vault
     cat init-keys.json | jq -r ".root_token"
 
     export VAULT_ROOT_TOKEN=$(cat init-keys.json | jq -r ".root_token")
 
-    vault login $VAULT_ROOT_TOKEN
+    1. kubectl exec vault-0 -n vault -- vault login $VAULT_ROOT_TOKEN
+    2. vault login $VAULT_ROOT_TOKEN
 
 ### Configure Vault with existing CA
 1. Links
@@ -100,3 +104,50 @@
 
 ### Start Nginx
 docker run --rm -v E:/k8/private-ca/vault/certs:/etc/nginx/certs -v E:/k8/private-ca/web-server:/etc/nginx/conf.d --name nginx -p 80:80 -p 443:443 nginx
+
+### Ingress setup
+    1. Links:
+        https://medium.com/@dikkumburage/how-to-install-nginx-ingress-controller-93a375e8edde
+
+    2. helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+
+    2. helm install ingress-nginx ingress-nginx/ingress-nginx -f ingress.yaml
+
+        Example:
+            An example Ingress that makes use of the controller:
+            apiVersion: networking.k8s.io/v1
+            kind: Ingress
+            metadata:
+                name: example
+                namespace: foo
+            spec:
+                ingressClassName: nginx
+                rules:
+                - host: www.example.com
+                    http:
+                    paths:
+                        - pathType: Prefix
+                        backend:
+                            service:
+                            name: exampleService
+                            port:
+                                number: 80
+                        path: /
+                # This section is only required if TLS is to be enabled for the Ingress
+                tls:
+                - hosts:
+                    - www.example.com
+                    secretName: example-tls
+
+            If TLS is enabled for the Ingress, a Secret containing the certificate and key must also be provided:
+
+            apiVersion: v1
+            kind: Secret
+            metadata:
+                name: example-tls
+                namespace: foo
+            data:
+                tls.crt: <base64 encoded cert>
+                tls.key: <base64 encoded key>
+            type: kubernetes.io/tls
+    

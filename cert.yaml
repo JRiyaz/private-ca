@@ -1,0 +1,39 @@
+# kubectl create serviceaccount issuer
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: issuer-token
+  annotations:
+    kubernetes.io/service-account.name: issuer
+type: kubernetes.io/service-account-token
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: vault-issuer
+  namespace: default
+spec:
+  vault:
+    server: http://vault.default:8200
+    path: pki/sign/example-dot-com
+    auth:
+      kubernetes:
+        mountPath: /v1/auth/kubernetes
+        role: issuer
+        secretRef:
+          name: issuer-token
+          key: token
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: example-com
+  namespace: default
+spec:
+  secretName: example-com-tls
+  issuerRef:
+    name: vault-issuer
+  commonName: www.example.com
+  dnsNames:
+  - www.example.com

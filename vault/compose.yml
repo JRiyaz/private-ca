@@ -7,11 +7,25 @@ services:
       dockerfile: Dockerfile
     env_file:
       - .env
-    ports:
-      - "8200:8200"
+    # ports:
+    #   - "8200:8200"
     cap_add:
       - IPC_LOCK
     volumes:
       - E:/k8/private-ca/vault/config:/vault/config
       - E:/k8/private-ca/vault/certs:/vault/certs
       - E:/k8/private-ca/vault/logs:/vault/logs
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.vault-secure.entrypoints=websecure
+      - traefik.http.routers.vault-secure.rule=Host(`vault.localhost.com`)
+      - traefik.http.routers.vault-secure.tls=true
+      - traefik.http.routers.vault-secure.service=vault
+      - traefik.http.services.vault.loadbalancer.server.port=8200
+      - traefik.docker.network=proxy
+    networks:
+      proxy:
+
+networks:
+  proxy:
+    external: true # or comment this line to auto create the network

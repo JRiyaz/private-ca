@@ -1,0 +1,19 @@
+{
+  "request_id": "031ca188-fe7d-55e8-bcb3-682663c2cd3b",
+  "lease_id": "",
+  "lease_duration": 0,
+  "renewable": false,
+  "data": {
+    "certificate": "-----BEGIN CERTIFICATE-----\nMIIDRTCCAi2gAwIBAgIUM3a6ioWVCqUHB/+8Ug/DoX7UUYEwDQYJKoZIhvcNAQEL\nBQAwKjEoMCYGA1UEAxMfTG9jYWxIb3N0IENlcnRpZmljYXRlIEF1dGhvcml0eTAe\nFw0yNTAyMjYxMTQ2NTVaFw0zNTAyMjQxMTQ3MjVaMCoxKDAmBgNVBAMTH0xvY2Fs\nSG9zdCBDZXJ0aWZpY2F0ZSBBdXRob3JpdHkwggEiMA0GCSqGSIb3DQEBAQUAA4IB\nDwAwggEKAoIBAQCzVCBk0YapFrZSTiiqg5Hj+NVE/9OyTsKd7ay2kQZeRtJ3PVgt\nYagHb+OTPIl1HXD208lirNdpGd70qntWGcmoZEG6u+8NEc/wTAYczzyU+Z4sBbT6\nKbWbK+GVQazoAFprq9NYkgqDvXqN7uHko5kTvOmDPWiik8dIFnF0NNCQTj4m06+E\n6i0UElVajFTO9duaKhmpOol4F6wtK39jWoLMk3Ea2cNr/aAhs9PHSg/QG45fpAC9\ny9WiKX3hhmBdK8v0MBuhM+dr+GL9RRfnIYKHczLoa3qyIB8nIJkwLg7ge9WlajW+\nugg1Dw7OncL7bmUZK/hKTToplV7rxkB4JtUHAgMBAAGjYzBhMA4GA1UdDwEB/wQE\nAwIBBjAPBgNVHRMBAf8EBTADAQH/MB0GA1UdDgQWBBRcJcy5XeTbkPlUJMQelTs3\n5ehhUTAfBgNVHSMEGDAWgBRcJcy5XeTbkPlUJMQelTs35ehhUTANBgkqhkiG9w0B\nAQsFAAOCAQEAkRZleKe+kSphjKLYJ5cZYo04YpGL8MdEi6yh6vL6TxVR7vBSPoNT\nvjwJOWZdqboCcwlQ3SBea18O2OI2R30tKI5Kl2koykQJvoF/njfgv69HgQsog/pk\nFMQO2kvOHmL4hFupxEZcq3FlwFFI+icV/vb/QtN1yC9JMxQtKgoaWiR9EMj71FuM\nB9Blh89QbAC57Lr5+Q+q75HkGDBpJiu7SmZB4Hvk5Eus/SE0Bv6yUfeN5rq+TT5A\nrkjNOkmlLjQMBImWYEDkbAUzG8kDwZUxsbIUHjMZuZGB8XbXtXfB3K9dIrfPuw66\n8EbqlzfXgezgMoUmbmI7MzZMLzRMXAA5LQ==\n-----END CERTIFICATE-----",
+    "expiration": 2055930445,
+    "issuer_id": "0af4ccb5-5840-2e93-aa52-9e65638e1b35",
+    "issuer_name": "LocalHost-Inc",
+    "issuing_ca": "-----BEGIN CERTIFICATE-----\nMIIDRTCCAi2gAwIBAgIUM3a6ioWVCqUHB/+8Ug/DoX7UUYEwDQYJKoZIhvcNAQEL\nBQAwKjEoMCYGA1UEAxMfTG9jYWxIb3N0IENlcnRpZmljYXRlIEF1dGhvcml0eTAe\nFw0yNTAyMjYxMTQ2NTVaFw0zNTAyMjQxMTQ3MjVaMCoxKDAmBgNVBAMTH0xvY2Fs\nSG9zdCBDZXJ0aWZpY2F0ZSBBdXRob3JpdHkwggEiMA0GCSqGSIb3DQEBAQUAA4IB\nDwAwggEKAoIBAQCzVCBk0YapFrZSTiiqg5Hj+NVE/9OyTsKd7ay2kQZeRtJ3PVgt\nYagHb+OTPIl1HXD208lirNdpGd70qntWGcmoZEG6u+8NEc/wTAYczzyU+Z4sBbT6\nKbWbK+GVQazoAFprq9NYkgqDvXqN7uHko5kTvOmDPWiik8dIFnF0NNCQTj4m06+E\n6i0UElVajFTO9duaKhmpOol4F6wtK39jWoLMk3Ea2cNr/aAhs9PHSg/QG45fpAC9\ny9WiKX3hhmBdK8v0MBuhM+dr+GL9RRfnIYKHczLoa3qyIB8nIJkwLg7ge9WlajW+\nugg1Dw7OncL7bmUZK/hKTToplV7rxkB4JtUHAgMBAAGjYzBhMA4GA1UdDwEB/wQE\nAwIBBjAPBgNVHRMBAf8EBTADAQH/MB0GA1UdDgQWBBRcJcy5XeTbkPlUJMQelTs3\n5ehhUTAfBgNVHSMEGDAWgBRcJcy5XeTbkPlUJMQelTs35ehhUTANBgkqhkiG9w0B\nAQsFAAOCAQEAkRZleKe+kSphjKLYJ5cZYo04YpGL8MdEi6yh6vL6TxVR7vBSPoNT\nvjwJOWZdqboCcwlQ3SBea18O2OI2R30tKI5Kl2koykQJvoF/njfgv69HgQsog/pk\nFMQO2kvOHmL4hFupxEZcq3FlwFFI+icV/vb/QtN1yC9JMxQtKgoaWiR9EMj71FuM\nB9Blh89QbAC57Lr5+Q+q75HkGDBpJiu7SmZB4Hvk5Eus/SE0Bv6yUfeN5rq+TT5A\nrkjNOkmlLjQMBImWYEDkbAUzG8kDwZUxsbIUHjMZuZGB8XbXtXfB3K9dIrfPuw66\n8EbqlzfXgezgMoUmbmI7MzZMLzRMXAA5LQ==\n-----END CERTIFICATE-----",
+    "key_id": "297e2c67-0d8e-f424-14d5-b8790e90c30b",
+    "key_name": "",
+    "serial_number": "33:76:ba:8a:85:95:0a:a5:07:07:ff:bc:52:0f:c3:a1:7e:d4:51:81"
+  },
+  "warnings": [
+    "This mount hasn't configured any authority information access (AIA) fields; this may make it harder for systems to find missing certificates in the chain or to validate revocation status of certificates. Consider updating /config/urls or the newly generated issuer with this information."
+  ]
+}

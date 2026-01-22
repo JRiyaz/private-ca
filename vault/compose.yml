@@ -12,9 +12,12 @@ services:
     cap_add:
       - IPC_LOCK
     volumes:
-      - E:/k8/private-ca/vault/config:/vault/config
-      - E:/k8/private-ca/vault/certs:/vault/certs
-      - E:/k8/private-ca/vault/logs:/vault/logs
+      # - E:/k8/private-ca/vault/config:/vault/config
+      # - E:/k8/private-ca/vault/certs:/vault/certs
+      # - E:/k8/private-ca/vault/logs:/vault/logs
+      - ./new/config:/vault/config
+      - ./new/certs:/vault/certs
+      - ./new/logs:/vault/logs
     labels:
       - traefik.enable=true
       - traefik.http.routers.vault-secure.entrypoints=websecure
@@ -23,9 +26,9 @@ services:
       - traefik.http.routers.vault-secure.service=vault
       - traefik.http.services.vault.loadbalancer.server.port=8200
       - traefik.docker.network=proxy
-    networks:
-      proxy:
+#     networks:
+#       proxy:
 
-networks:
-  proxy:
-    external: true # or comment this line to auto create the network
+# networks:
+#   proxy:
+#     external: true # or comment this line to auto create the network

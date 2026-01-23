@@ -1,7 +1,7 @@
 services:
   vault:
     container_name: "vault"
-    image: "vault:1.18.1"
+    image: "vault"
     build:
       context: .
       dockerfile: Dockerfile

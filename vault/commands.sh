@@ -47,7 +47,7 @@ cat pki-ca-root.json | jq -r .data.certificate > ca-root.pem
 vault write pki/config/urls issuing_certificates="${VAULT_ADDR}/v1/pki/ca" crl_distribution_points="${VAULT_ADDR}/v1/pki/crl"
 
 ### COPY PEM FILE TO DESIRED LOCATION
-cp ca-root.pem /vault/certs/"${CERT_PATH}"/ca-root.pem
+cp ca-root.pem "${DIR_PATH}/ca-root.pem"
 
 ### ENABLE PKI ENGINE FOR INTERMEDIATE CA          **************** INTERMEDIATE CA ****************
 vault secrets enable -path=pki_int pki
@@ -62,7 +62,7 @@ vault write -format=json pki_int/intermediate/generate/internal common_name="${I
 vault write -format=json pki/root/sign-intermediate csr=@pki-ca-inter.csr format=pem_bundle ttl="${INTERMEDIATE_CA_TTL}" issuer_ref="${ROOT_ISSUER_NAME}"  | jq -r '.data.certificate' > ca-inter.pem
 
 ### COPY INTERMEDIATE CERTS TO DESIRED LOCATION
-cp ca-inter.pem /vault/certs/"${CERT_PATH}"/ca-inter.pem
+cp ca-inter.pem "${DIR_PATH}/ca-inter.pem"
 
 vault write pki_int/intermediate/set-signed certificate=@ca-inter.pem
 
@@ -92,14 +92,14 @@ export VAULT_TOKEN=`cat user.token`
 vault write -format=json pki_int/issue/"${VAULT_ROOT_DOMAIN_URL}" common_name="${VAULT_REQUIRED_DOMAIN}" issuer_ref="${INTER_ISSUER_NAME}" alt_names="${VAULT_ALT_NAMES}" ttl="${LEAF_CA_TTL}" > "${VAULT_SUB_DOMAIN}".json
 
 # shellcheck disable=SC2002
-cat "${VAULT_SUB_DOMAIN}".json | jq -r .data.certificate > /vault/certs/"${CERT_PATH}"/"${VAULT_SUB_DOMAIN}".crt
+cat "${VAULT_SUB_DOMAIN}".json | jq -r .data.certificate > "${DIR_PATH}/${VAULT_SUB_DOMAIN}.crt"
 # shellcheck disable=SC2002
-cat "${VAULT_SUB_DOMAIN}".json | jq -r .data.issuing_ca >> /vault/certs/"${CERT_PATH}"/"${VAULT_SUB_DOMAIN}".crt
+cat "${VAULT_SUB_DOMAIN}".json | jq -r .data.issuing_ca >> "${DIR_PATH}/${VAULT_SUB_DOMAIN}.crt"
 # shellcheck disable=SC2002
-cat "${VAULT_SUB_DOMAIN}".json | jq -r .data.private_key > /vault/certs/"${CERT_PATH}"/"${VAULT_SUB_DOMAIN}".key
+cat "${VAULT_SUB_DOMAIN}".json | jq -r .data.private_key > "${DIR_PATH}/${VAULT_SUB_DOMAIN}.key"
 
-openssl x509 -outform der -in ca-root.pem -out /vault/certs/"${CERT_PATH}"/ca-root.crt
-openssl x509 -outform der -in ca-inter.pem -out /vault/certs/"${CERT_PATH}"/ca-inter.crt
+openssl x509 -outform der -in ca-root.pem -out "${DIR_PATH}/ca-root.crt"
+openssl x509 -outform der -in ca-inter.pem -out "${DIR_PATH}/ca-inter.crt"
 
 # https://developer.hashicorp.com/vault/api-docs/secret/pki#import-ca-certificates-and-keys
 # To Use/Import existing CA
